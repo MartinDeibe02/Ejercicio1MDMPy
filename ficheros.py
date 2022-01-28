@@ -37,6 +37,33 @@ def comprobar_ruta(ruta):
     else:
         print(f'La ruta {ruta} no es un fichero')
 
+def leer_fichero():
+    print('Escriba la ruta del fichero: ', end='')
+    ruta = pedir_ruta()
+    if (os.path.isfile(ruta)):
+        comprobar_ruta(ruta)
+    else:
+        print(f"{ruta} no existe")
+
+def copiar_fichero():
+        print('Escriba la ruta del fichero de origen: ', end='')
+        ruta_origen = pedir_ruta()
+        if os.path.isfile(ruta_origen):
+            print('Escriba la ruta del fichero de destino: ', end='')
+            ruta_destino = pedir_ruta()
+
+            if os.path.isfile(ruta_destino):
+                shutil.copyfile(ruta_origen, ruta_destino)
+                print("archivo copiado")
+            else:
+                print(f"{ruta_destino} no existe")
+
+        else:
+            print(f"{ruta_origen} no existe")
+
+
+
+
 
 if __name__ == "__main__":
     while True:
@@ -45,17 +72,10 @@ if __name__ == "__main__":
         valor = pedir_valor()
 
         if valor==1:
-            print('Escriba la ruta del fichero: ', end='')
-            ruta = pedir_ruta()
+            leer_fichero()
 
-            comprobar_ruta(ruta)
         elif valor==2:
-            print('Escriba la ruta del fichero de origen: ', end='')
-            ruta_origen = pedir_ruta()
-            print('Escriba la ruta del fichero de destino: ', end='')
-            ruta_destino = pedir_ruta()
-            shutil.copyfile(ruta_origen,ruta_destino)
-            print("Archivo copiado")
+            copiar_fichero()
         elif valor==3:
             pass
         elif valor==0:
