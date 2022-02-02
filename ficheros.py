@@ -1,6 +1,8 @@
+import glob
 import os.path
 import shutil
 from turtle import pen
+
 
 
 def escribir_menu():
@@ -51,19 +53,25 @@ def copiar_fichero():
         if os.path.isfile(ruta_origen):
             print('Escriba la ruta del fichero de destino: ', end='')
             ruta_destino = pedir_ruta()
+            shutil.copyfile(ruta_origen, ruta_destino)
+            print("archivo copiado")
 
-            if os.path.isfile(ruta_destino):
-                shutil.copyfile(ruta_origen, ruta_destino)
-                print("archivo copiado")
-            else:
-                print(f"{ruta_destino} no existe")
 
         else:
             print(f"{ruta_origen} no existe")
 
 
+def lista_ficheros():
+    print("Escriba ruta del directorio: ", end='')
+    ruta = pedir_ruta()
+    if os.path.isdir(ruta):
 
-
+        for path, x, file in os.walk(ruta):
+            for f in file:
+                size = os.path.getsize(os.path.join(path, f))
+                print(f, size)
+    else:
+        print(f"{ruta} no es un directorio")
 
 if __name__ == "__main__":
     while True:
@@ -77,7 +85,7 @@ if __name__ == "__main__":
         elif valor==2:
             copiar_fichero()
         elif valor==3:
-            pass
+            lista_ficheros()
         elif valor==0:
             exit(0)
         else:
